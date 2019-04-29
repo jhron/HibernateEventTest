@@ -9,12 +9,14 @@ class CustomFieldsManager {
             klass = GrailsHibernateUtil.unwrapIfProxy(domain).class
         }
         String klassName = klass.name
-        def currValues = domain.customFields
-        //saving custom fields based on its definition.. here just hardcoded example
-        if ( currValues.age ) {
-            def pcf = new PersonCustomFields(long: currValues.age)
-            pcf.owner = domain
-            pcf.save()
+        if ( domain?.instanceOf( Person ) ) {
+            def currValues = domain.customFields
+            //saving custom fields based on its definition.. here just hardcoded example
+            if (currValues.age) {
+                def pcf = new PersonCustomFields(long: currValues.age)
+                pcf.owner = domain
+                pcf.save()
+            }
         }
     }
 
